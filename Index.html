@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>regex</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            background-color: #eee;
+        }
+        #searchArea{
+            margin-top: 2rem;
+            display: grid;
+            place-items: center;
+            width: 100%;
+        }
+        #search{
+            padding: 2px;
+            background: none;
+            border: none;
+            outline: none;
+            border-bottom: solid royalblue 2px;
+            border-radius: 5px;
+        }
+        #wrapper{
+            position: relative;
+            /* background-color: royalblue; */
+        }
+        #lable{
+            position: absolute;
+            font-size: 16px;
+            opacity: .7;
+            left: 0;
+        }
+       
+      #wrapper input:hover ~ lable,
+      #wrapper input:focus ~ lable {  
+          font-size: 12px;
+          transform: translateY(-10px);
+          opacity: 1;
+          color: royalblue;
+          transition: all 200ms ease-in-out;
+        }
+       #wrapper input:not(:placeholder-shown)~ lable {
+        font-size: 12px;
+        transform: translateY(-10px);
+        opacity: 1;
+        color: royalblue;
+        transition: all 200ms ease-in-out;
+        }
+        #article{
+        margin-inline: 6rem;
+        margin-block:2rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="searchArea">
+        <div id="wrapper">
+            <input type="text" placeholder=" " id="search" autocomplete="off" autofocus="on" />
+            <lable id="lable">search</lable>
+        </div>
+    </div>
+    <section id="article">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet sunt facere facilis odio perspiciatis dolor, exercitationem labore nostrum magnam, a, dolorum maiores minus. Laudantium totam voluptates odit neque. Amet reprehenderit officiis voluptatem quisquam quod maxime voluptas itaque perferendis optio explicabo ratione quidem aut culpa earum corporis id illo nisi expedita temporibus quis, saepe, minima sunt debitis error! Atque esse cumque possimus voluptate, itaque facere a dolores! Vero necessitatibus distinctio nemo fugiat voluptatum, doloribus laboriosam tempora laborum minus maiores possimus odit optio, consectetur quia fugit enim. Vero corrupti sunt consectetur impedit accusantium perspiciatis cum deleniti ipsam laboriosam nisi quos libero hic consequuntur iste quibusdam nulla ut ratione atque odit, quas natus magni qui sed velit? Amet temporibus nihil voluptatum? Quos totam magni aliquid consectetur enim ullam accusamus minus cupiditate consequuntur, ducimus rerum! Quos laborum fuga vitae neque minus unde autem commodi perferendis facilis, atque asperiores aut dolorem id saepe ducimus quas laudantium delectus adipisci dicta dolore, itaque est ipsa! Reiciendis, cum consectetur? Voluptate, excepturi recusandae architecto cum ex praesentium vero exercitationem suscipit minima maxime itaque nulla expedita eaque facere voluptatem consectetur aperiam reiciendis error commodi quidem doloribus? Maxime cum ea totam placeat magni, eaque dignissimos reprehenderit delectus, voluptatem asperiores esse suscipit?</section>
+
+    <script>
+        // debounce with cheat
+
+    //     debounce = (cb,delay = 500) => {
+    //        let timer
+    //        return (...a) => {
+    //            clearTimeout(timer)
+    //            timer = setTimeout(()=>{
+    //                cb(...a)
+    //            },delay) 
+    //        }
+    //    }
+
+    //    const textUpdate = debounce(text => {
+    //       console.log("hi");
+    //    },500)
+
+    //     // code
+
+    //     let search = document.getElementById("search")
+    //     search.addEventListener("keyup", e => {
+    //         textUpdate(e.target.value);
+    //     })
+
+
+        // debounce without cheat 
+
+        const search = document.getElementById("search")
+        let article = document.getElementById("article")
+        const mainArticle = article.textContent
+       
+        search.addEventListener("input", e => {
+        let x = e.target.value
+        let mark = document.createElement("mark")
+
+            setTimeout(()=>{
+               
+                let y = e.target.value
+                regex = new RegExp(y,"g")
+                
+                if (x==y){
+                    article.innerHTML = article.textContent.replace(regex , match => `<mark>${match}</mark>`)
+                }
+                if(search.value==""){
+                    article.innerHTML = mainArticle
+               }
+            },500)
+           
+        })
+
+        // without debounce
+
+        // let search  = document.getElementById("search")
+        // search.addEventListener("keypress", e => {
+        //     console.log("watch out for server cost :(")
+        // })
+
+
+        // text = "hello world!"
+        // console.log(text.replace("!","?"))
+
+    </script>
+</body>
+</html>
